@@ -1,0 +1,15 @@
+.balon1 {
+    float: right;
+    background: #35cce6;
+    border-radius: 10px;
+}
+
+.balon2 {
+    float: left;
+    background: #f4f7f9;
+    border-radius: 10px;
+}
+
+.message {
+    overflow: hidden;
+}
