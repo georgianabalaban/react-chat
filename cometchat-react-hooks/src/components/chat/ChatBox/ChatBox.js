@@ -17,9 +17,7 @@ const ChatBox = props => {
                 {chat.map(chat => (
                     <div key={chat.id} className={classes.message}>
                         <div
-                            className={`${
-                                chat.receiver !== user.uid ? classes.balon1 : classes.balon2
-                            } p-3 m-1`}>
+                            className={`${chat.receiver.uid !== user.uid ? classes.balon1 : classes.balon2} p-3 m-1`}>
                             {chat.text}
                         </div>
                     </div>

@@ -11,3 +11,13 @@
 .LoginForm {
     padding: 10%;
 }
+
+.Error {
+    color: red;
+    position: absolute;
+    top: -30px;
+}
+
+.InputError {
+    border-color: red;
+}
