@@ -11,6 +11,8 @@ const limit = 30;
 const Chat = ({user}) => {
     const [friends, setFriends] = useState([]);
     const [selectedFriend, setSelectedFriend] = useState("");
+    const [selectedFriendName, setSelectedFriendName] = useState("");
+    const [friendAvatar, setFriendAvatar] = useState('');
     const [chat, setChat] = useState([]);
     const [chatIsLoading, setChatIsLoading] = useState(false);
     const [friendisLoading, setFriendisLoading] = useState(true);
@@ -36,8 +38,10 @@ const Chat = ({user}) => {
         };
     }, []);
 
-    const selectFriendHandler = uid => {
+    const selectFriendHandler = (uid, name, avatar) => {
         setSelectedFriend(uid);
+        setSelectedFriendName(name);
+        setFriendAvatar(avatar);
         setChat([]);
         setChatIsLoading(true);
     };
@@ -59,6 +63,7 @@ const Chat = ({user}) => {
 
             messagesRequest.fetchPrevious().then(
                 messages => {
+                    console.log(messages);
                     setChat(messages);
                     setChatIsLoading(false);
                     scrollToBottom();
@@ -113,24 +118,25 @@ const Chat = ({user}) => {
                 <div className='col-md-2' />
                 <div className='col-md-8 h-100pr border rounded'>
                     <div className='row'>
-                        <div className='col-lg-4 col-xs-12 bg-light' style={{height: 658}}>
-                            <div className='row p-3'>
+                        <div className='col-lg-4 col-xs-12 bg-dark' style={{height: 658}}>
+                            <div className='row p-3 text-primary'>
                                 <h2>Friend List</h2>
                             </div>
                             <div
-                                className='row ml-0 mr-0 h-75 bg-white border rounded'
+                                className='row ml-0 mr-0 h-75 bg-dark border rounded'
                                 style={{height: '100%', overflow: 'auto'}}>
                                 <FriendList
                                     friends={friends}
                                     friendisLoading={friendisLoading}
-                                    selectFriend={(uid) => selectFriendHandler(uid)}
+                                    selectFriend={(uid, name, avatar) => selectFriendHandler(uid, name, avatar)}
                                     selectedFriend={selectedFriend}
                                 />
                             </div>
                         </div>
                         <div className='col-lg-8 col-xs-12 bg-light' style={{height: 658}}>
-                            <div className='row p-3 bg-white'>
-                                <h2>Who you gonna chat with?</h2>
+                            <div className='p-3'>
+                                <h2>{selectedFriend ? 'Chat with '+ selectedFriendName : 'Who you gonna chat with?'}</h2>
+                                {selectedFriend ? <p className="text-secondary">Already {chat.length} messages</p> : null}
                             </div>
                             <div
                                 className='row pt-5 bg-white'
@@ -139,6 +145,7 @@ const Chat = ({user}) => {
                                     chat={chat}
                                     chatIsLoading={chatIsLoading}
                                     user={user}
+                                    friendAvatar={friendAvatar}
                                 />
                             </div>
                             <div className='row bg-light' style={{bottom: 0, width: '100%'}}>
@@ -157,7 +164,7 @@ const Chat = ({user}) => {
                                     </div>
                                     <div className='col-3 m-0 p-1'>
                                         <button
-                                            className='btn btn-outline-secondary rounded border w-100'
+                                            className={`btn btn-outline-secondary rounded w-100 ${classes.Button}`}
                                             title='Send'
                                             style={{paddingRight: 16}}>
                                             Send

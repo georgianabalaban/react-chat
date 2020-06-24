@@ -1,5 +1,6 @@
 import React from "react";
 import MDSpinner from 'react-md-spinner';
+import classes from './FriendList.module.css';
 
 const FriendList = props => {
     const {friends, friendisLoading, selectedFriend, selectFriend} = props;
@@ -11,14 +12,14 @@ const FriendList = props => {
         );
     } else {
         return (
-            <ul className='list-group list-group-flush w-100'>
+            <ul className='list-group w-100'>
                 {friends.map(friend => (
                     <li
                         key={friend.uid}
-                        className={`list-group-item ${
-                    friend.uid === selectedFriend ? 'active' : ''
+                        className={`list-group-item bg-dark text-white ${
+                    friend.uid === selectedFriend ? classes.Active : ''
                 }`}
-                    onClick={() => selectFriend(friend.uid)}>
+                    onClick={() => selectFriend(friend.uid, friend.name, friend.avatar)}>
                     {friend.name}
                     </li>
                     ))}

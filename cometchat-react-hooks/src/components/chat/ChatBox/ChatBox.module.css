@@ -8,8 +8,15 @@
     float: left;
     background: #f4f7f9;
     border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.125);
 }
 
 .message {
     overflow: hidden;
+}
+
+.Avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
 }
